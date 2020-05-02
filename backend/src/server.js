@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const _ = require('lodash');
+const fs = require('fs');
 
 const app = express();
 
@@ -30,22 +31,47 @@ app.get('/applications', (req, res) => {
 
 app.post('/comments/:id', (req, res) => {
 
-    const value = Object.keys(req.body).toString();
+    const value = JSON.stringify(Object.keys(req.body).toString());
     const id = req.params.id;
 
     const itemData = _.map(data.applications, item => item.videos);
 
     const comments = _.map(itemData[0], val => val);
-    // console.log(comments);
+    // console.log(value, id);
 
-    addComment(id, value)
-    function addComment(id, value) {
-        for (let i = 0; i < comments.length; i++) {
-            if (comments[i].questionId === id)
-                comments[i].comments = value;
-            return;
-        }
+
+    readJsonFile();
+    function readJsonFile() {
+        fs.readFile('src/api.json', (err, data) => {
+            if (err) throw err;
+            let student = JSON.parse(data);
+            
+            writeJsonFile(student);
+        });
     }
+
+    function writeJsonFile(file) {
+        // const data = _.map(file.applications, item => item.videos);
+        // _.map(data[0], val =>
+        fs.writeFile('src/api.json', JSON.stringify(value), err => {
+
+            if (err) throw err;
+            if (val.questionId === id) {
+                console.log("Id matched")
+            }
+        })
+    }
+
+
+
+    // addComment(id, value)
+    // function addComment(id, value) {
+    //     for (let i = 0; i < comments.length; i++) {
+    //         if (comments[i].questionId === id)
+    //             comments[i].comments = value;
+    //         return;
+    //     }
+    // }
 
 })
 
