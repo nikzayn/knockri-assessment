@@ -6,6 +6,7 @@
 - How should the application work?
 - System Requirements
 - Usage
+- Issues
 - API Usage
 
 
@@ -50,6 +51,10 @@ The user of this react application should be able to view the video response(s) 
 sudo docker-compose build
 sudo docker-compose up
 ```
+
+### Issues
+- While updating comment there's error in code.
+- Comment Update method is in pending state
 
 ## API Usage
 
